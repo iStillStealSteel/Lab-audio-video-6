@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CommonEditareTools;
 
 namespace Lab_audio_video_6
 {
@@ -42,9 +43,7 @@ namespace Lab_audio_video_6
         private void button2_Click(object sender, EventArgs e)
         {
             backup = image.Clone();
-            gray_image = backup.Convert<Gray, byte>();
-            pictureBox2.Image = gray_image.AsBitmap();
-            gray_image[0, 0] = new Gray(200);
+            pictureBox2.Image = ImageProcessClass.GrayScaleProcess(backup).AsBitmap();
 
             // HistogramViewer v = new HistogramViewer();
             // v.HistogramCtrl.GenerateHistograms(image, 255);
@@ -56,10 +55,7 @@ namespace Lab_audio_video_6
             try
             {
                 backup = image.Clone();
-                float alpha = (float)Convert.ToDouble(textBox1.Text);
-                float beta = (float)Convert.ToDouble(textBox2.Text);
-                image2 = backup.Mul(alpha) + beta;
-                pictureBox3.Image = image2.AsBitmap();
+                pictureBox3.Image = ImageProcessClass.AlfaBetaImgConv((float)Convert.ToDouble(textBox1.Text), (float)Convert.ToDouble(textBox2.Text),backup).AsBitmap();
             }
             catch (Exception ex) { }
         }
@@ -69,15 +65,14 @@ namespace Lab_audio_video_6
             try
             {
                 image3 = image.Clone();
-                float a = (float)Convert.ToDouble(textBox3.Text);
-                image3._GammaCorrect(a);
-                pictureBox4.Image = image3.AsBitmap();
+                pictureBox4.Image = ImageProcessClass.GammaCorrectFunc((float)Convert.ToDouble(textBox3.Text),backup).AsBitmap();
             }
             catch (Exception ex) { }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
+            pictureBox5.Image = null;
             try
             {   
                 backup= image.Clone();
@@ -107,7 +102,7 @@ namespace Lab_audio_video_6
 
         private void button7_Click(object sender, EventArgs e)
         {
-            //pictureBox7.Image = image.AsBitmap();
+            pictureBox7.Image = image.AsBitmap();
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {

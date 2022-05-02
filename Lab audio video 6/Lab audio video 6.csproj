@@ -113,5 +113,11 @@
   <ItemGroup>
     <Content Include="pic.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonEditareTools\CommonEditareTools.csproj">
+      <Project>{68ac5ce8-b332-4582-a725-8d275f465080}</Project>
+      <Name>CommonEditareTools</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

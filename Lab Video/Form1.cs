@@ -54,11 +54,11 @@ namespace Lab_Video
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFile = new OpenFileDialog();
-            if (openFile.ShowDialog() == DialogResult.OK)
-            {
-                newBackgroundImage = new Image<Bgr, byte>(openFile.FileName);
-            }
+            //OpenFileDialog openFile = new OpenFileDialog();
+            //if (openFile.ShowDialog() == DialogResult.OK)
+            //{
+            //    newBackgroundImage = new Image<Bgr, byte>(openFile.FileName);
+            //}
             try
             {
                 cameraCapture = new VideoCapture();
@@ -75,9 +75,11 @@ namespace Lab_Video
 
         private void ProcessFrames(object sender, EventArgs e)
         {
+            Mat mm = new Mat();
+            capture.Read(mm);
             Mat frame = cameraCapture.QueryFrame();
             Image<Bgr, byte> frameImage = frame.ToImage<Bgr, Byte>();
-
+            newBackgroundImage = mm.ToImage<Bgr, byte>(); 
             Mat foregroundMask = new Mat();
             fgDetector.Apply(frame, foregroundMask);
             var foregroundMaskImage = foregroundMask.ToImage<Gray, Byte>();
@@ -89,6 +91,8 @@ namespace Lab_Video
             foregroundMaskImage = foregroundMaskImage.Not();
             frameImage = frameImage.Copy(foregroundMaskImage);
             frameImage = frameImage.Or(copyOfNewBackgroundImage);
+
+            pictureBox2.Image = frameImage.ToBitmap();
 
 
         }
