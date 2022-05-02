@@ -5,22 +5,41 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab audio video 6", "Lab audio video 6\Lab audio video 6.csproj", "{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab Video", "Lab Video\Lab Video.csproj", "{CF6DB7CC-E027-487F-9BFD-F7F557D24C2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}.Debug|x64.ActiveCfg = Debug|x64
 		{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}.Debug|x64.Build.0 = Debug|x64
+		{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}.Debug|x86.ActiveCfg = Debug|x64
+		{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}.Debug|x86.Build.0 = Debug|x64
 		{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}.Release|x64.ActiveCfg = Release|x64
 		{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}.Release|x64.Build.0 = Release|x64
+		{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}.Release|x86.ActiveCfg = Release|Any CPU
+		{3A2C9077-0D3E-4C97-B50E-3DE1E85D9BFF}.Release|x86.Build.0 = Release|Any CPU
+		{CF6DB7CC-E027-487F-9BFD-F7F557D24C2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF6DB7CC-E027-487F-9BFD-F7F557D24C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF6DB7CC-E027-487F-9BFD-F7F557D24C2C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CF6DB7CC-E027-487F-9BFD-F7F557D24C2C}.Debug|x86.ActiveCfg = Debug|x86
+		{CF6DB7CC-E027-487F-9BFD-F7F557D24C2C}.Debug|x86.Build.0 = Debug|x86
+		{CF6DB7CC-E027-487F-9BFD-F7F557D24C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF6DB7CC-E027-487F-9BFD-F7F557D24C2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF6DB7CC-E027-487F-9BFD-F7F557D24C2C}.Release|x64.ActiveCfg = Release|Any CPU
+		{CF6DB7CC-E027-487F-9BFD-F7F557D24C2C}.Release|x64.Build.0 = Release|Any CPU
+		{CF6DB7CC-E027-487F-9BFD-F7F557D24C2C}.Release|x86.ActiveCfg = Release|x86
+		{CF6DB7CC-E027-487F-9BFD-F7F557D24C2C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
