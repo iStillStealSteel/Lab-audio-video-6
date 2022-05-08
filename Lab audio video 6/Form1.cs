@@ -18,13 +18,7 @@ namespace Lab_audio_video_6
     {
 
         Image<Bgr, Byte> image;
-        Image<Bgr, Byte> image2;
-        Image<Bgr, Byte> image3;
-        Image<Bgr, Byte> image4;
-        Image<Bgr, Byte> image5;
-        Image<Gray, byte> gray_image;
         Image<Bgr, Byte> backup;
-        Image<Bgr, Byte> imageBlend;
         public Form1()
         {
             InitializeComponent();
@@ -64,7 +58,6 @@ namespace Lab_audio_video_6
         {
             try
             {
-                image3 = image.Clone();
                 pictureBox4.Image = ImageProcessClass.GammaCorrectFunc((float)Convert.ToDouble(textBox3.Text),backup).AsBitmap();
             }
             catch (Exception ex) { }
@@ -76,9 +69,7 @@ namespace Lab_audio_video_6
             try
             {   
                 backup= image.Clone();
-                var r = Convert.ToDouble(textBox4.Text);
-                image4 = backup.Resize(r, Emgu.CV.CvEnum.Inter.Linear);
-                pictureBox5.Image = image4.AsBitmap();
+                pictureBox5.Image = ImageProcessClass.ResizeFunc(Convert.ToDouble(textBox4.Text), backup).AsBitmap();
             }
             catch (Exception ex) { }
         }
@@ -88,9 +79,7 @@ namespace Lab_audio_video_6
             try
             {
                 backup = image.Clone();
-                var r = (float)Convert.ToDouble(textBox5.Text);
-                image5 = backup.Rotate(r, new Bgr(), false);
-                pictureBox6.Image = image5.AsBitmap();
+                pictureBox6.Image = ImageProcessClass.RotateFunc(Convert.ToDouble(textBox5.Text), backup).AsBitmap();
             }
             catch (Exception ex) { }
         }
@@ -148,24 +137,7 @@ namespace Lab_audio_video_6
 
         private async void button8_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFile = new OpenFileDialog();
-            List<Image<Bgr, byte>> listImages = new List<Image<Bgr, byte>>();
-            if (openFile.ShowDialog() == DialogResult.OK)
-            {
-                imageBlend = new Image<Bgr, byte>(openFile.FileName);
-                listImages.Add(image);
-                listImages.Add(imageBlend);
-                for (int i = 0; i < listImages.Count - 1; i++)
-                {
-                    for (double alpha = 0.0; alpha <= 1.0; alpha += 0.01)
-                    {
-                        pictureBox8.Image = listImages[i + 1].AddWeighted(listImages[i], alpha, 1 - alpha, 0).AsBitmap();
-                        await Task.Delay(10);
-                    }
-                }
-
-            }
-
+            await ImageProcessClass.ImageBlendAsync(backup, pictureBox8);
         }
     }
 }
