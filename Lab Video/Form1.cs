@@ -23,6 +23,7 @@ namespace Lab_Video
         private static VideoCapture cameraCapture;
         private Image<Bgr, Byte> newBackgroundImage;
         private static IBackgroundSubtractor fgDetector;
+        OpenFileDialog ofdv = new OpenFileDialog();
 
 
         public Form1()
@@ -131,18 +132,86 @@ namespace Lab_Video
 
         }
 
+        //private async void ReadAllFrames()
+        //{
+        //    Mat m = new Mat();
+        //    while (IsReadingFrame == true && FrameNo < TotalFrame)
+        //    {
+        //        FrameNo += 1;
+        //        var mat = capture.QueryFrame();
+        //        pictureBox1.Image = mat.ToBitmap();
+        //        await Task.Delay(1000 / Convert.ToInt16(Fps));
+        //        label1.Text = FrameNo.ToString() + "/" + TotalFrame.ToString();
+        //    }
+        //}
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ofdv = new OpenFileDialog();
+            if (ofdv.ShowDialog() == DialogResult.OK)
+            {
+                capture = new VideoCapture(ofdv.FileName);
+                Mat m = new Mat();
+                capture.Read(m);
+                pictureBox1.Image = m.ToBitmap();
+
+                TotalFrame = (int)capture.Get(CapProp.FrameCount);
+                Fps = capture.Get(CapProp.Fps);
+                FrameNo = 1;
+            }
+            if (capture == null)
+            {
+                return;
+            }
+            IsReadingFrame = true;
+            ReadAllFrames();
+        }
+
         private async void ReadAllFrames()
         {
+
             Mat m = new Mat();
             while (IsReadingFrame == true && FrameNo < TotalFrame)
             {
                 FrameNo += 1;
                 var mat = capture.QueryFrame();
-                pictureBox1.Image = mat.ToBitmap();
+                if (mat != null)
+                {
+                    newBackgroundImage = mat.ToImage<Bgr, byte>();
+                    var mod = mat.ToBitmap();
+                    if (numericUpDown1.Value == 2 && FrameNo > TotalFrame - 11)
+                    {
+                        mod = (mat.ToImage<Bgr, byte>().Mul(3.0 * (10 - (TotalFrame - FrameNo))) + 2.0 * (10 - (TotalFrame - FrameNo))).AsBitmap();
+                    }
+                    if (numericUpDown1.Value == 2 && FrameNo < 11)
+                    {
+                        mod = (mat.ToImage<Bgr, byte>().Mul(3.0 * (10 - FrameNo)) + 2.0 * (10 - FrameNo)).AsBitmap();
+                    }
+                    pictureBox1.Image = mod;
+                }
                 await Task.Delay(1000 / Convert.ToInt16(Fps));
                 label1.Text = FrameNo.ToString() + "/" + TotalFrame.ToString();
             }
-        }
 
+            if (numericUpDown1.Value == 0)
+                numericUpDown1.Value = 1;
+            if (numericUpDown1.Value > 3)
+                numericUpDown1.Value = 1;
+
+            capture.Read(m);
+            pictureBox1.Image = m.ToBitmap();
+
+            TotalFrame = (int)capture.Get(CapProp.FrameCount);
+            Fps = capture.Get(CapProp.Fps);
+            FrameNo = 1;
+            if (capture == null)
+            {
+                return;
+            }
+            IsReadingFrame = true;
+            capture = new VideoCapture(ofdv.FileName);
+            ReadAllFrames();
+
+
+        }
     }
 }

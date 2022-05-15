@@ -137,6 +137,7 @@ namespace Lab_audio_video_6
 
         private async void button8_Click(object sender, EventArgs e)
         {
+            backup=image.Clone();
             await ImageProcessClass.ImageBlendAsync(backup, pictureBox8);
         }
     }
