@@ -21,26 +21,35 @@ namespace CommonEditareTools
 
     public class ImageProcessClass
     {
-        public static Image<Gray, byte> GrayScaleProcess(Image<Bgr, Byte> backup)
+        public static Bitmap ShowImage(string path)
         {
-            return backup.Convert<Gray, byte>();
+            Image<Bgr, Byte> image = new Image<Bgr, byte>(path);
+            return image.AsBitmap();
         }
-        public static Image<Bgr, Byte> AlfaBetaImgConv(float alpha, float beta, Image<Bgr, Byte> backup)
+        public static Bitmap GrayScaleProcess(string path)
         {
-            return backup.Mul(alpha) + beta; 
+            Image<Bgr, Byte> backup = new Image<Bgr, byte>(path);
+            return backup.Convert<Gray, byte>().AsBitmap();
         }
-        public static Image<Bgr, byte> GammaCorrectFunc(float gama, Image<Bgr, Byte> backup)
+        public static Bitmap AlfaBetaImgConv(float alpha, float beta, string path)
         {
-            // return backup._GammaCorrect(gama);
-            return backup;
+            Image<Bgr, Byte> backup = new Image<Bgr, byte>(path);
+            return (backup.Mul(alpha) + beta).AsBitmap(); 
         }
-        public static Image<Bgr, Byte> ResizeFunc(double r, Image<Bgr, Byte> backup)
+        public static Bitmap GammaCorrectFunc(float gama, string path)
         {
-            return backup.Resize(r, Emgu.CV.CvEnum.Inter.Linear);
+            Image<Bgr, Byte> backup = new Image<Bgr, byte>(path);
+            return backup.Mul(gama).AsBitmap();
         }
-        public static Image<Bgr, Byte> RotateFunc(double r, Image<Bgr, Byte> backup)
+        public static Bitmap ResizeFunc(double r, string path)
         {
-            return backup.Rotate(r, new Bgr(), false);
+            Image<Bgr, Byte> backup = new Image<Bgr, byte>(path);
+            return backup.Resize(r, Emgu.CV.CvEnum.Inter.Linear).AsBitmap();
+        }
+        public static Bitmap RotateFunc(double r, string path)
+        {
+            Image<Bgr, Byte> backup = new Image<Bgr, byte>(path);
+            return backup.Rotate(r, new Bgr(), false).AsBitmap();
         }
         public static async Task ImageBlendAsync(Image<Bgr, Byte> image,PictureBox pb)
         {

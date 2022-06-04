@@ -11,11 +11,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NAudio;
+using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 
 namespace Lab_Video
 {
+
     public partial class Form1 : Form
     {
+         WaveOutEvent outputDevice;
+         AudioFileReader audioFile;
+
         int TotalFrame, FrameNo;
         double Fps;
         bool IsReadingFrame;
@@ -92,7 +99,7 @@ namespace Lab_Video
             foregroundMaskImage = foregroundMaskImage.Not();
             frameImage = frameImage.Copy(foregroundMaskImage);
             frameImage = frameImage.Or(copyOfNewBackgroundImage);
-
+            
             pictureBox2.Image = frameImage.ToBitmap();
 
 
@@ -164,6 +171,79 @@ namespace Lab_Video
             }
             IsReadingFrame = true;
             ReadAllFrames();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            button1.Show();
+            button2.Show();
+            button3.Show();
+            button4.Show();
+            button5.Show();
+            button6.Hide();
+            pictureBox1.Show();
+            pictureBox2.Show();
+            button7.Hide();
+            button8.Hide();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            button1.Hide();
+            button2.Hide();
+            button3.Hide();
+            button4.Hide();
+            button5.Hide();
+            pictureBox1.Hide();
+            pictureBox2.Hide();
+            button6.Show();
+            numericUpDown1.Hide();
+            button7.Show();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (outputDevice != null)
+            {
+                outputDevice.Dispose();
+            }
+            if(audioFile != null)
+            {
+                outputDevice.Stop();
+                audioFile = null;
+            }
+            if (outputDevice == null)
+            {
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += button7_Click;
+            }
+            if (audioFile == null)
+            {
+                audioFile = new AudioFileReader(@"C:\Users\boo_b\Music\ELUVEITIE - Inis Mona (OFFICIAL MUSIC VIDEO).mp3");
+            }
+            outputDevice.Init(audioFile);
+            outputDevice.Play();
+            button8.Show();
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            outputDevice.Dispose();
+            audioFile.Dispose();
+            audioFile = null;
+            //using (var reader1 = new AudioFileReader("file1.wav"))
+            using (audioFile = new AudioFileReader(@"C:\Users\boo_b\Music\ELUVEITIE - Inis Mona (OFFICIAL MUSIC VIDEO).mp3"))
+            using (var reader2 = new AudioFileReader(@"C:\Users\boo_b\Music\Foolish Samurai Warrior.mp3"))
+            {
+                audioFile.Volume = 0.40f;
+                var mixer = new MixingSampleProvider(new[] { audioFile, reader2 });
+                WaveFileWriter.CreateWaveFile16("mixed.wav", mixer);
+                var red = new AudioFileReader("mixed.wav");
+                outputDevice.Init(red);
+            }
+            outputDevice.Play();
+
         }
 
         private async void ReadAllFrames()

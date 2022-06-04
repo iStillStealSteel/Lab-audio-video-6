@@ -19,6 +19,7 @@ namespace Lab_audio_video_6
 
         Image<Bgr, Byte> image;
         Image<Bgr, Byte> backup;
+        OpenFileDialog ImagePath;
         public Form1()
         {
             InitializeComponent();
@@ -27,17 +28,16 @@ namespace Lab_audio_video_6
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFile = new OpenFileDialog();
+            ImagePath=openFile;
             if (openFile.ShowDialog() == DialogResult.OK)
             {
-                image = new Image<Bgr, byte>(openFile.FileName);
-                pictureBox1.Image = image.AsBitmap();
+                pictureBox1.Image = ImageProcessClass.ShowImage(ImagePath.FileName);
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            backup = image.Clone();
-            pictureBox2.Image = ImageProcessClass.GrayScaleProcess(backup).AsBitmap();
+            pictureBox2.Image = ImageProcessClass.GrayScaleProcess(ImagePath.FileName);
 
             // HistogramViewer v = new HistogramViewer();
             // v.HistogramCtrl.GenerateHistograms(image, 255);
@@ -48,8 +48,7 @@ namespace Lab_audio_video_6
         {
             try
             {
-                backup = image.Clone();
-                pictureBox3.Image = ImageProcessClass.AlfaBetaImgConv((float)Convert.ToDouble(textBox1.Text), (float)Convert.ToDouble(textBox2.Text),backup).AsBitmap();
+                pictureBox3.Image = ImageProcessClass.AlfaBetaImgConv((float)Convert.ToDouble(textBox1.Text), (float)Convert.ToDouble(textBox2.Text), ImagePath.FileName);
             }
             catch (Exception ex) { }
         }
@@ -58,7 +57,7 @@ namespace Lab_audio_video_6
         {
             try
             {
-                pictureBox4.Image = ImageProcessClass.GammaCorrectFunc((float)Convert.ToDouble(textBox3.Text),backup).AsBitmap();
+                pictureBox4.Image = ImageProcessClass.GammaCorrectFunc((float)Convert.ToDouble(textBox3.Text), ImagePath.FileName);
             }
             catch (Exception ex) { }
         }
@@ -68,8 +67,7 @@ namespace Lab_audio_video_6
             pictureBox5.Image = null;
             try
             {   
-                backup= image.Clone();
-                pictureBox5.Image = ImageProcessClass.ResizeFunc(Convert.ToDouble(textBox4.Text), backup).AsBitmap();
+                pictureBox5.Image = ImageProcessClass.ResizeFunc(Convert.ToDouble(textBox4.Text), ImagePath.FileName);
             }
             catch (Exception ex) { }
         }
@@ -78,21 +76,13 @@ namespace Lab_audio_video_6
         {
             try
             {
-                backup = image.Clone();
-                pictureBox6.Image = ImageProcessClass.RotateFunc(Convert.ToDouble(textBox5.Text), backup).AsBitmap();
+                pictureBox6.Image = ImageProcessClass.RotateFunc(Convert.ToDouble(textBox5.Text), ImagePath.FileName);
             }
             catch (Exception ex) { }
         }
         Rectangle rect; Point StartROI; bool MouseDown;
 
-        private void pictureBox7_MouseMove(object sender, MouseEventArgs e)
-        {
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            pictureBox7.Image = image.AsBitmap();
-        }
+    
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             MouseDown = false;

@@ -46,7 +46,6 @@
             this.button6 = new System.Windows.Forms.Button();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.button7 = new System.Windows.Forms.Button();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -223,17 +222,6 @@
             this.pictureBox7.Size = new System.Drawing.Size(312, 163);
             this.pictureBox7.TabIndex = 19;
             this.pictureBox7.TabStop = false;
-            this.pictureBox7.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox7_MouseMove);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(119, 626);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 20;
-            this.button7.Text = "Load";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // pictureBox8
             // 
@@ -261,7 +249,6 @@
             this.ClientSize = new System.Drawing.Size(1204, 663);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.pictureBox8);
-            this.Controls.Add(this.button7);
             this.Controls.Add(this.pictureBox7);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.button6);
@@ -315,7 +302,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.Button button8;
     }
